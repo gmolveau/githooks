@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
+
 #
 # An example hook script to verify what is about to be committed.
 # Called by "git commit" with no arguments.  The hook should
 # exit with non-zero status after issuing an appropriate message if
 # it wants to stop the commit.
 #
-# To enable this hook, rename this file to "pre-commit".
 
-if git rev-parse --verify HEAD >/dev/null 2>&1
-then
+if git rev-parse --verify HEAD >/dev/null 2>&1; then # = 0
     against=HEAD
 else
     # Initial commit: diff against an empty tree object
@@ -28,7 +28,7 @@ if [ "$allownonascii" != "true" ] &&
     # Note that the use of brackets around a tr range is ok here, (it's
     # even required, for portability to Solaris 10's /usr/bin/tr), since
     # the square bracket bytes happen to fall in the designated range.
-    test $(git diff --cached --name-only --diff-filter=A -z $against |
+    test $(git diff --cached --name-only --diff-filter=AM -z "${against}" |
       LC_ALL=C tr -d '[ -~]\0' | wc -c) != 0
 then
     cat <<\EOF

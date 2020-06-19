@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+readonly HOOK_TYPE="pre-push"
+readonly HOOKS_FOLDER="$(dirname "$0")/${HOOK_TYPE}.d"
+
+readonly RUN_ALL_TESTS=false
+EXIT_STATUS=0
+
+for hook in "${HOOKS_FOLDER}"/*; do
+    ./"${hook}" "$@"
+    local RESULT=$?
+    if [ ${RESULT} != 0 ]; then
+        EXIT_STATUS=${RESULT}
+        echo "${HOOK_TYPE}/${hook} returned non-zero: ${RESULT}"
+        if [[ "${RUN_ALL_TESTS}" = false ]]; then
+            exit ${EXIT_STATUS}
+        fi
+    fi
+done
+
+exit ${EXIT_STATUS}
