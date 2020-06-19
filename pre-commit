@@ -7,7 +7,13 @@ readonly HOOKS_FOLDER="$(dirname "$0")/${HOOK_TYPE}.d"
 readonly RUN_ALL_TESTS=false
 EXIT_STATUS=0
 
-for hook in "${HOOKS_FOLDER}"/*; do
+HOOKS=$(find "${HOOKS_FOLDER}" -type f -executable)
+
+for hook in ${HOOKS}; do
+    if [[ $(basename "${hook}") == _* ]]; then
+        echo "> skipping ${HOOK_TYPE}/${hook}"
+        continue
+    fi
     ./"${hook}"
     RESULT=$?
     if [ ${RESULT} != 0 ]; then
