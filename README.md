@@ -3,7 +3,7 @@
 > inspiration : https://www.viget.com/articles/two-ways-to-share-git-hooks-with-your-team/
 > and https://stackoverflow.com/a/61341619/2627873
 
-This is a pure-bash way of managing git-hooks. Git hooks can now be versioned with the project.
+This is a pure-bash way of managing git-hooks. Githooks can now be versioned with the project.
 
 ## Getting started
 
@@ -34,4 +34,4 @@ You can find some examples in `pre-commit.d` and `pre-push.d`.
 
 ## Alternatives
 
-- [https://pre-commit.com/](https://pre-commit.com/) 
+- [https://pre-commit.com/](https://pre-commit.com/) + [https://git.tasa.fr/gmolveau/pre-commit](https://git.tasa.fr/gmolveau/pre-commit)

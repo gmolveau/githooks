@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -uo pipefail
 
 readonly HOOK_TYPE="pre-commit"
 readonly HOOKS_FOLDER="$(dirname "$0")/${HOOK_TYPE}.d"
@@ -9,7 +9,7 @@ EXIT_STATUS=0
 
 for hook in "${HOOKS_FOLDER}"/*; do
     ./"${hook}"
-    local RESULT=$?
+    RESULT=$?
     if [ ${RESULT} != 0 ]; then
         EXIT_STATUS=${RESULT}
         echo "${HOOK_TYPE}/${hook} returned non-zero: ${RESULT}"

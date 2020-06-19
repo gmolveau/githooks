@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -uo pipefail
 
 TODO_FOUND="no"
 
@@ -14,8 +14,6 @@ for WITH_TODO in $OFFENDING_FILES; do
     TODO_FOUND="yes"
 done
 
-if [ "$TODO_FOUND" = "no" ]; then
-    echo "* No TODO or FIXME detected"
-else
+if [ "$TODO_FOUND" != "no" ]; then
     exit 1
 fi

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -uo pipefail
 
 if ! [ -x "$(command -v shfmt)" ]; then
     echo "_ Skipping shmft - not installed/not in \$PATH"

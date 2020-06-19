@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -uo pipefail
 
 #
 # An example hook script to verify what is about to be committed.
@@ -28,8 +28,8 @@ if [ "$allownonascii" != "true" ] &&
     # Note that the use of brackets around a tr range is ok here, (it's
     # even required, for portability to Solaris 10's /usr/bin/tr), since
     # the square bracket bytes happen to fall in the designated range.
-    test $(git diff --cached --name-only --diff-filter=AM -z "${against}" |
-      LC_ALL=C tr -d '[ -~]\0' | wc -c) != 0
+    test "$(git diff --cached --name-only --diff-filter=AM -z "${against}" |
+      LC_ALL=C tr -d '[ -~]\0' | wc -c)" != 0
 then
     cat <<\EOF
 Error: Attempt to add a non-ASCII file name.
@@ -46,4 +46,4 @@ EOF
 fi
 
 # If there are whitespace errors, print the offending file names and fail.
-exec git diff-index --check --cached $against --
+exec git diff-index --check --cached "$against" --
