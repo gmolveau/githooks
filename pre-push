@@ -10,6 +10,7 @@ EXIT_STATUS=0
 HOOKS=$(find "${HOOKS_FOLDER}" -type f -executable)
 
 for hook in ${HOOKS}; do
+    # hooks that begin with an underscore are skipped
     if [[ $(basename "${hook}") == _* ]]; then
         echo "> skipping ${HOOK_TYPE}/${hook}"
         continue
