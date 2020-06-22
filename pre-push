@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-readonly HOOK_TYPE="pre-push"
+readonly HOOK_TYPE="pre-commit"
 readonly HOOKS_FOLDER="$(dirname "$0")/${HOOK_TYPE}.d"
 
 readonly RUN_ALL_TESTS=false
@@ -9,17 +9,18 @@ EXIT_STATUS=0
 
 HOOKS=$(find "${HOOKS_FOLDER}" -type f -executable)
 
-for hook in ${HOOKS}; do
+for HOOK_PATH in ${HOOKS}; do
     # hooks that begin with an underscore are skipped
-    if [[ $(basename "${hook}") == _* ]]; then
-        echo "> skipping ${HOOK_TYPE}/${hook}"
-        continue
+    HOOK_NAME=$(basename "${HOOK_PATH}")
+    if [[ "${HOOK_NAME}" == _* ]]; then
+        echo "> skipping ${HOOK_NAME}"
+        continue # go to next hook
     fi
-    ./"${hook}" "$@"
+    ./"${HOOK_PATH}" "$@"
     RESULT=$?
     if [ ${RESULT} != 0 ]; then
         EXIT_STATUS=${RESULT}
-        echo "${HOOK_TYPE}/${hook} returned non-zero: ${RESULT}"
+        echo "${HOOK_TYPE}/${HOOK_NAME} returned non-zero: ${RESULT}"
         if [[ "${RUN_ALL_TESTS}" = false ]]; then
             exit ${EXIT_STATUS}
         fi
