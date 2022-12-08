@@ -34,4 +34,4 @@ You can find some examples in `pre-commit.d` and `pre-push.d`.
 
 ## Alternatives
 
-- [https://pre-commit.com/](https://pre-commit.com/) + [https://git.tasa.fr/gmolveau/pre-commit](https://git.tasa.fr/gmolveau/pre-commit)
+- [https://pre-commit.com/](https://pre-commit.com/)
